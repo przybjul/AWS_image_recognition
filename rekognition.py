@@ -8,12 +8,12 @@ with open('new_user_credentials.csv', 'r') as input:
         access_key_id = line[2]
         secret_access_key = line[3]
 
-photo = 'beyonce.jpg'
+photo = 'zdj.jpg'
 
 client = boto3.client('rekognition', aws_access_key_id = access_key_id, aws_secret_access_key = secret_access_key, region_name='us-west-2')
 
-with open(photo, 'rb') as source_image:
-    source_bytes = source_image.read()
+# with open(photo, 'rb') as source_image:
+#     source_bytes = source_image.read()
 
 # response = client.detect_labels(Image={'Bytes':source_bytes}, MaxLabels = 2, MinConfidence=95)
 
@@ -29,4 +29,15 @@ response = client.detect_moderation_labels(Image={'S3Object':{
     "Name":photo
     }},MinConfidence=90)
 
-print(response)
+#rozpoznanie twarzy
+response = client.detect_faces(Image={'S3Object':{
+    "Bucket":"image-recognition-1",
+    "Name":photo
+    }},Attributes=['ALL'])
+
+for key, value in response.items():
+    if key == 'FaceDetails':
+        for people_att in value:
+            print(people_att)
+            print("_________")
+# print(response)
