@@ -38,7 +38,7 @@ async def check_status():
 async def get_all_photos():
     # Connect to our database
     conn = psycopg2.connect(
-        database="exampledb", user="docker", password="docker", host="localhost"
+        database="exampledb", user="docker", password="docker", host="localhost", port = 5432
     )
     cur = conn.cursor()
     cur.execute("SELECT * FROM photo ORDER BY id DESC")
@@ -64,7 +64,9 @@ async def add_photo(file: UploadFile):
     print(file.content_type)
 
     # Upload file to AWS S3
-    s3 = boto3.resource("s3")
+    s3 = boto3.resource('s3',
+         aws_access_key_id="AKIAY7OFF5K7OEBSRRNH",
+         aws_secret_access_key= "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")
     bucket = s3.Bucket(S3_BUCKET_NAME)
     bucket.upload_fileobj(file.file, file.filename, ExtraArgs={"ACL": "public-read"})
 
@@ -72,7 +74,7 @@ async def add_photo(file: UploadFile):
 
     # Store URL in database
     conn = psycopg2.connect(
-        database="exampledb", user="docker", password="docker", host="127.0.0.1"
+        database="exampledb", user="docker", password="docker", host="localhost", port = "5432"
     )
     cur = conn.cursor()
     cur.execute(
@@ -84,4 +86,4 @@ async def add_photo(file: UploadFile):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=False)
+    uvicorn.run(app, host="localhost", port=8000, reload=False)

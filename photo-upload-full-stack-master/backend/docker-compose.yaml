@@ -1,6 +1,6 @@
 services:
-  database:
-    image: postgres
+  db:
+    image: postgres:15.0-alpine
     ports:
       - 5432:5432
     restart: always
@@ -8,13 +8,14 @@ services:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: exampledb
-    volumes:
-      - db-photo-upload-service:/var/lib/postgresql/data
+      # POSTGRES_HOST: localhost
+    # volumes:
+    #   - db-photo-upload-service:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
     depends_on:
-      - database
+      - db
     ports:
       - 8080:8080
 
