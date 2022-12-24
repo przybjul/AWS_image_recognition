@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import uvicorn
 import boto3
 import psycopg2
+from typing import Optional
 
 from fastapi import FastAPI, UploadFile
 
@@ -13,10 +14,10 @@ S3_BUCKET_NAME = "image-recognition-1"
 
 
 class PhotoModel(BaseModel):
-    id: int
+    id: int 
     photo_name: str
     photo_url: str
-    is_deleted: bool
+    is_deleted: Optional[bool] = None
 
 
 app = FastAPI(debug=True)
@@ -46,9 +47,10 @@ async def get_all_photos():
 
     formatted_photos = []
     for row in rows:
+        print(row)
         formatted_photos.append(
             PhotoModel(
-                id=row[0], photo_name=row[1], photo_url=row[2], is_deleted=row[3]
+                id=row[2], photo_name=row[0], photo_url=row[1], is_deleted=row[3]
             )
         )
 
