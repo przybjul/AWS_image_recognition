@@ -1,10 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+
 import {useState, useEffect} from "react";
-import {Center, ChakraProvider, Container, Heading,VStack,Text,HStack,Button,SimpleGrid,Image} from "@chakra-ui/react";
+import {Center, ChakraProvider, Container, Heading,VStack,Text,HStack,Button,SimpleGrid,Image, Spinner,} from "@chakra-ui/react";
 
 export default function App(){
   const [allPhotos, setAllPhotos] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isSelected, setIsSelected] = useState(false);
+  const [uploadSuccessful, setUploadSuccessful] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  const onInputChange = (e) => {
+    setIsSelected(true);
+    setSelectedFile(e.target.files[0]);
+  };
+  const onFileUpload = (e) => {
+    setShowSpinner(true);
+    const formData = new FormData();
+    formData.append("file", selectedFile, selectedFile.name);
+    fetch("http://localhost:8000/photos",{
+      method: "POST",
+      body: formData,
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success posting");
+      setUploadSuccessful(!uploadSuccessful);
+      setShowSpinner(false);
+    });
+  };
 
   useEffect(() =>{
     fetch("http://localhost:8000/photos")
@@ -13,7 +36,7 @@ export default function App(){
       console.log(data);
       setAllPhotos(data);
     });
-  },[]);
+  },[uploadSuccessful]);
   return(
     <ChakraProvider>
       <Center bg="black" color="white" padding={8}>
@@ -21,8 +44,15 @@ export default function App(){
           <Heading>Your gallery</Heading>
           <Text>Take a look at all your photos!</Text>
           <HStack>
-            <input type="file" onChange={null} onClick={null}></input>
-            <Button size="lg" colorScheme="red" isDisabled={null} onClick={null}>Upload photo</Button>
+            <input type="file" onChange={onInputChange}></input>
+            <Button size="lg" colorScheme="red" isDisabled={!isSelected} onClick={onFileUpload}>Upload photo</Button>
+            {
+              showSpinner && (
+                <Center>
+                  <Spinner size="xl"></Spinner>
+                </Center>
+              )
+            }
           </HStack>
           <Heading>Your photos</Heading>
           <SimpleGrid columns={3} spacing={8}>
