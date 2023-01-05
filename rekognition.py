@@ -10,7 +10,7 @@ with open('new_user_credentials.csv', 'r') as input:
 
 photo = 'zdj.jpg'
 
-client = boto3.client('rekognition', aws_access_key_id = access_key_id, aws_secret_access_key = secret_access_key, region_name='us-west-2')
+client = boto3.client('rekognition', aws_access_key_id = "AKIAY7OFF5K7MJPS6TD4", aws_secret_access_key = "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", region_name='us-west-2')
 
 # with open(photo, 'rb') as source_image:
 #     source_bytes = source_image.read()
@@ -38,6 +38,15 @@ response = client.detect_faces(Image={'S3Object':{
 for key, value in response.items():
     if key == 'FaceDetails':
         for people_att in value:
+            gender = str(people_att["Gender"]["Value"])
+            low_age_range = str(people_att["AgeRange"]["Low"])
+            high_age_range = str(people_att["AgeRange"]["High"])
+            smile = people_att["Gender"]["Value"]
+            if smile:
+                is_smiling = "is smiling."
+            else:
+                is_smiling = "is not smiling."
+            # print("This person is "+gender+". Age of this person is in range from "+low_age_range+" to " + high_age_range + " years old. This person "+is_smiling)
             print(people_att)
             print("_________")
 # print(response)
