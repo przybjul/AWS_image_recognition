@@ -4,8 +4,8 @@ import boto3
 def get_image_description(photo: str):
     client = boto3.client(
         "rekognition",
-        aws_access_key_id="AKIAY7OFF5K7MYXUYC7M",
-        aws_secret_access_key="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",
+        aws_access_key_id="",
+        aws_secret_access_key="",
         region_name="us-east-1",
     )
     # rozpoznanie twarzy
@@ -48,8 +48,8 @@ def get_image_transcription(photo: str):
     # Amazon Textract client
     textractmodule = boto3.client(
         "textract",
-        aws_access_key_id="AKIAY7OFF5K7MYXUYC7M",
-        aws_secret_access_key="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",
+        aws_access_key_id="",
+        aws_secret_access_key="",
         region_name="us-east-1",
     )
 

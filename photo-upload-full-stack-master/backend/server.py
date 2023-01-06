@@ -78,8 +78,8 @@ async def add_photo(file: UploadFile):
     # Upload file to AWS S3
     s3 = boto3.resource(
         "s3",
-        aws_access_key_id="AKIAY7OFF5K7MYXUYC7M",
-        aws_secret_access_key="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",
+        aws_access_key_id="",
+        aws_secret_access_key="",
     )
     bucket = s3.Bucket(S3_BUCKET_NAME)
     bucket.upload_fileobj(file.file, file.filename, ExtraArgs={"ACL": "public-read"})
@@ -115,8 +115,8 @@ async def add_photo(file: UploadFile):
     # Upload file to AWS S3
     s3 = boto3.resource(
         "s3",
-        aws_access_key_id="AKIAY7OFF5K7MYXUYC7M",
-        aws_secret_access_key="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",
+        aws_access_key_id="",
+        aws_secret_access_key="",
     )
     bucket = s3.Bucket(S3_BUCKET_NAME2)
     bucket.upload_fileobj(file.file, file.filename, ExtraArgs={"ACL": "public-read"})
