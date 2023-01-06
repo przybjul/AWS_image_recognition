@@ -8,9 +8,6 @@ services:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: exampledb
-      # POSTGRES_HOST: localhost
-    # volumes:
-    #   - db-photo-upload-service:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always

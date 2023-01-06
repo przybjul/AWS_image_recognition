@@ -60,9 +60,8 @@ export default function App(){
               allPhotos.map(photo =>{
                 console.log(photo["photo_url"])
                 return(
-                  // <Image borderRadius={25} boxSize="800px" src={photo["photo_url"]} fallbackSrc="https://via.placeholder.com/150" objFit="cover"></Image>
                   <Center>
-                    <Image width="450px" src={photo["photo_url"]} fallbackSrc="https://via.placeholder.com/150" objFit="cover"></Image>
+                    <Image width="400px" src={photo["photo_url"]} fallbackSrc="https://via.placeholder.com/150" objFit="cover"></Image>
                   </Center>
                 )
               }) 
@@ -83,25 +82,4 @@ export default function App(){
   );
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
-// export default App;

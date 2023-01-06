@@ -1,1 +1,0 @@
-# AWS_image_recognition
