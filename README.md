@@ -1,4 +1,5 @@
 # AWS_image_recognition
+Filmik youtube, na którym omawiam projekt
 https://youtu.be/dqCGewXc-j0
 
 Wykonano projekt umożliwiający rozpoznanie obrazu z wykorzystaniem
